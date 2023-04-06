@@ -1,0 +1,100 @@
+﻿@model Web.ViewModel.OrderViewModel
+@using Microsoft.AspNetCore.Identity
+@using Service.Entities.Identity;
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if (User.IsInRole("Member"))
+{
+    <h1>Order 's list of @Model.identityUser.UserName</h1>
+}
+else
+{
+    <h1>HaDVH 's Restaurant Order's List</h1>
+}
+
+@{
+    var orderList = Model.Orders.ToList();
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => orderList.FirstOrDefault().Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => orderList.FirstOrDefault().SumPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => orderList.FirstOrDefault().DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => orderList.FirstOrDefault().DateUpdated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => orderList.FirstOrDefault().OrderProcess.StatusOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.identityUser.UserName)
+            </th>
+            <th>
+                <form class="form-control container col-2" asp-controller="Order" asp-action="IndexForOrderStatus" method="post">
+                    <div class="form-actions no-color">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @*@inject UserManager<IdentityUser> userManager*@
+                            @inject UserManager<ApplicationUser> userManager
+                            var users = await userManager.GetUsersInRoleAsync("Member");
+                            @*var users = userManager.Users;*@
+                            <span>Choose User:</span>
+                            <select style="height: 50px" class="form-select" asp-items="Model.UserSelectOptions" asp-for="UserIDSelected"> </select>
+                            
+                            <span>Choose Status Process:</span>
+                            <select style="height: 50px" class="form-select" asp-items="Model.OrderProcessStatus" asp-for="OrderProcessSearchSelected"> </select>
+                            <input type="submit" value="Search" class="btn btn-default" /> 
+                            <a asp-action="Index">Back to Full List</a>
+                        }
+                        else
+                        {
+                            <span>Choose Status Process:</span>
+                            <select style="height: 50px" class="form-select" asp-items="Model.OrderProcessStatus" asp-for="OrderProcessSearchSelected"> </select>
+                            <input type="submit" value="Search" class="btn btn-default" />
+                            <a asp-action="Index">Back to Full List</a>
+                        }
+                    </div>
+                </form>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in orderList)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SumPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUpdated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderProcess.StatusOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

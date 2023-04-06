@@ -1,0 +1,61 @@
+﻿@model Service.Entities.MealCategory
+
+@{
+    ViewData["Title"] = "DetailMealCategory";
+}
+
+<h1>DetailMealCategory</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Meals.ToList()[0].MealName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Meals.ToList()[0].MealDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Meals.ToList()[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Meals.ToList()[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Meals.ToList()[0].MealImage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Meals.ToList()) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MealName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MealDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                    <img src="~/Images/@item.MealImage" class="rounded-circle" width="60px" height="60px" asp-append-version=true />
+                @*@Html.DisplayFor(modelItem => item.MealImage)*@
+            </td>
+            <td>
+                    @if (User.IsInRole("Member"))
+                    {
+                        @*@Html.ActionLink("AddToCart","AddToCart","Meal",new {id=item.MealID})*@
+                         <a asp-action="AddToCart" asp-controller="Meal" asp-route-mealID= "@item.MealID"> Add To Cart </a>
+                    }else{
+                        @Html.ActionLink("Meal Detail","MealDetail","Meal",new {id=item.MealID})
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

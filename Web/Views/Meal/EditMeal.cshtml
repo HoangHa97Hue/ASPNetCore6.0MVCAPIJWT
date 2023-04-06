@@ -1,0 +1,62 @@
+﻿@model Service.OtherClass.MealViewModel
+
+@{
+    ViewData["Title"] = "EditMeal";
+}
+
+<h1>EditMeal</h1>
+
+<h4>MealViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditMeal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             <div class="form-group">
+                <label asp-for="@Model.Meal.MealName" class="control-lable"></label>
+                <input asp-for="@Model.Meal.MealName" class="form-control">
+                <span asp-validation-for="@Model.Meal.MealName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Meal.MealDescription" class="control-lable"></label>
+                <input asp-for="@Model.Meal.MealDescription" class="form-control">
+                <span asp-validation-for="@Model.Meal.MealDescription" class="text-danger"></span>
+
+                <div>
+                    <label asp-for="@Model.Meal.Quantity" class="control-lable"></label>
+                    <input asp-for="@Model.Meal.Quantity" class="form-control">
+                    <span asp-validation-for="@Model.Meal.Quantity" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="@Model.Meal.Price" class="control-lable"></label>
+                    <input asp-for="@Model.Meal.Price" class="form-control">
+                    <span asp-validation-for="@Model.Meal.Price" class="text-danger"></span>
+                </div>
+                <div>
+                    <select class="form-select col-3" asp-items="@Model.ListSelectMealCategory" asp-for="MealCategoryIDSelected"> </select>
+                </div>
+                <div class="form-control">
+                    <label asp-for="MealImage" class="control-lable"></label>
+                    <input asp-for="MealImage" class="form-control" multiple />
+                    <span asp-validation-for="MealImage" class="text-danger"></span>
+                </div>
+            @*<div class="form-group">
+                <label asp-for="MealCategoryIDSelected" class="control-label"></label>
+                <input asp-for="MealCategoryIDSelected" class="form-control" />
+                <span asp-validation-for="MealCategoryIDSelected" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,65 @@
+﻿@model Service.Entities.Meal
+
+@{
+    ViewData["Title"] = "MealDetail";
+}
+
+<h1>MealDetail</h1>
+
+<div>
+    <h4>Meal</h4>
+    <hr />
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit this meal", "EditMeal", "Meal", new {  id=Model.MealID  })
+    }
+    <dl class="row">
+        @*        <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.MealID)
+        </dd>*@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MealName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MealDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class="col-sm-10">
+            @if(Model.Quantity == 0 ){
+            <span class="text-danger">This meal model.MealName is off </span>
+            }else{
+            @Html.DisplayFor(model => model.Quantity)
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            <img src="~/Images/@Model.MealImage" class="rounded-circle" width="60px" height="60px" asp-append-version=true />
+            @*@Html.DisplayNameFor(model => model.MealImage)*@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealImage)
+        </dd>
+    </dl>
+</div>
+ @if(Model.Quantity >= 0 &&  User.IsInRole("Member")){
+<div>
+        <a asp-action="AddToCart" asp-controller="Meal" asp-route-mealID="@Model.MealID"> Add To Cart </a>
+    @*@Html.ActionLink("AddToCart","AddToCart","Meal",new {id=Model.MealID})*@
+</div>
+ }
+<div>
+    <a asp-action="Index" asp-controller="Meal">Back to List of Meal</a>
+</div>

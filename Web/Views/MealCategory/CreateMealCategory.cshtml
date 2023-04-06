@@ -1,0 +1,40 @@
+﻿@model Service.OtherClass.MealCategoryViewModel
+
+@{
+    ViewData["Title"] = "CreateMealCategory";
+}
+
+<h1>CreateMealCategory</h1>
+
+<h4>MealCategoryViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateMealCategory" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.MealCategory.MealCategoryName" class="control-lable"></label>
+                <input asp-for="@Model.MealCategory.MealCategoryName" class="form-control">
+                <span asp-validation-for="@Model.MealCategory.MealCategoryName" class="text-danger"></span>
+            </div>
+            <label class="control-lable">Choose Image for this creating Meal Category</label>
+            <div class="form-control">
+                <label asp-for="MealCategoryImage" class="control-lable"></label>
+                <input asp-for="MealCategoryImage" class="form-control" multiple/>
+                <span asp-validation-for="MealCategoryImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            @Html.ValidationSummary()
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

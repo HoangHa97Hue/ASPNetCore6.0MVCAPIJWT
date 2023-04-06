@@ -1,0 +1,39 @@
+﻿@*@model Service.Entities.MealCategory
+
+@{
+    ViewData["Title"] = "CreateMeal";
+}
+
+<h1>CreateMeal</h1>
+
+<h4>MealCategory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateMeal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MealCategoryID" class="control-label"></label>
+                <input asp-for="MealCategoryID" class="form-control" />
+                <span asp-validation-for="MealCategoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MealCategoryName" class="control-label"></label>
+                <input asp-for="MealCategoryName" class="form-control" />
+                <span asp-validation-for="MealCategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@

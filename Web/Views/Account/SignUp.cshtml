@@ -1,0 +1,60 @@
+﻿
+@model Service.OtherClass.RegisterViewModel
+
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+<h1>SignUp</h1>
+
+<h4>RegistrationRequest</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4" > 
+        <form asp-action="SignUp" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.RegistrationRequest.FirstName" class="control-label"></label>
+                <input asp-for="@Model.RegistrationRequest.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.RegistrationRequest.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.RegistrationRequest.LastName" class="control-label"></label>
+                <input asp-for="@Model.RegistrationRequest.LastName" class="form-control" />
+                <span asp-validation-for="@Model.RegistrationRequest.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.RegistrationRequest.Email" class="control-label"></label>
+                <input asp-for="@Model.RegistrationRequest.Email" class="form-control" />
+                <span asp-validation-for="@Model.RegistrationRequest.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.RegistrationRequest.UserName" class="control-label"></label>
+                <input asp-for="@Model.RegistrationRequest.UserName" class="form-control" />
+                <span asp-validation-for="@Model.RegistrationRequest.UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.RegistrationRequest.Password" class="control-label"></label>
+                <input asp-for="@Model.RegistrationRequest.Password" class="form-control" />
+                <span asp-validation-for="@Model.RegistrationRequest.Password" class="text-danger"></span>
+            </div>
+            
+             <div>
+                    <label class="control-lable">Role</label>
+                    <select class="form-select col-3" asp-items="@Model.RoleListToSelect" asp-for="RoleSelected">
+                        <option selected="selected" value="">Choose Role....</option></select>
+                    <span asp-validation-for="@Model.RoleSelected" class="text-danger"></span>
+            </div>
+            
+            </br>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+            @Html.ValidationSummary()
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
